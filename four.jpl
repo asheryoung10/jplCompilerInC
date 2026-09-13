@@ -1,0 +1,5 @@
+fn four() : int {
+    return 4
+}
+
+show four() 
