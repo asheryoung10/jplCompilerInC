@@ -1,4 +1,5 @@
-jplCompilerInC : main.c sourceCode.c sourceCode.h
-	clang main.c sourceCode.c -o jplCompilerInC
+SOURCES = main.c sourceCode.c token.c lexer.c
+jplCompilerInC : $(SOURCES) 
+	clang $(SOURCES) -o jplCompilerInC
 run : jplCompilerInC four.jpl
 	./jplCompilerInC four.jpl
