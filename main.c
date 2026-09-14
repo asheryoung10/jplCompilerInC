@@ -23,7 +23,7 @@ int main(int argumentCount, char* argumentVector[]) {
     }
     printTokenList(tokenList);
 
-    printf("Compilation Successful\n");
+    printf("Compilation succeeded\n");
 
     freeTokenList(&tokenList);
     freeSourceCode(&sourceCode);

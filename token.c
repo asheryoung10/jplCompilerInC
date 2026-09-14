@@ -108,7 +108,7 @@ void printTokenList(TokenList tokenList)
                (int)token.lengthInSource,
                token.originInSource);
     }
-    printf("END OF FILE\n");
+    printf("END_OF_FILE\n");
 }
 
 void addToken(TokenList* tokenList, Token token) {

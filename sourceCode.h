@@ -2,6 +2,7 @@
 #include <stddef.h>
 
 typedef struct {
+    const char* filename;
     char* characters;
     size_t characterCount;
 } SourceCode;

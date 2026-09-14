@@ -1,5 +1,13 @@
+// first line comment
+let number = 10.0000
+let string = "string \"
+let a = 10
+let x = \
+4 \
++ 4
+show x
 fn four() : int {
     return 4
 }
 
-show four() 
+show four()

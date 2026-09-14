@@ -5,7 +5,7 @@
 SourceCode readSourceCode(const char* filename) {
     FILE* sourceCodeFile = fopen(filename, "r");
     if(sourceCodeFile == NULL) {
-        return (SourceCode){.characters=NULL, .characterCount=0};
+        return (SourceCode){.characters=NULL, .characterCount=0, .filename = NULL};
     }
 
     fseek(sourceCodeFile, 0, SEEK_END);
@@ -16,7 +16,7 @@ SourceCode readSourceCode(const char* filename) {
 
     if(characterBuffer == NULL) {
         fclose(sourceCodeFile);
-        return (SourceCode){.characters=NULL, .characterCount=0};
+        return (SourceCode){.characters=NULL, .characterCount=0, .filename=NULL};
     }
 
     size_t bytesRead = fread(characterBuffer, 1, byteCount, sourceCodeFile);
@@ -24,7 +24,7 @@ SourceCode readSourceCode(const char* filename) {
 
     fclose(sourceCodeFile);
 
-    return (SourceCode){.characters = characterBuffer, .characterCount = bytesRead};
+    return (SourceCode){.characters = characterBuffer, .characterCount = bytesRead, .filename = filename};
     
 
 
