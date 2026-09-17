@@ -62,5 +62,6 @@ typedef struct {
 void addToken(TokenList* tokenList, Token token);
 
 
+void printToken(Token token);
 void printTokenList(TokenList tokenList);
 const char* getTokenTypeString(TokenType tokenType);

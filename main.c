@@ -39,6 +39,14 @@ int main(int argumentCount, char* argumentVector[]) {
     }
     AST ast = parse(tokenList);
     printAST(ast);
+    if(ast.commands == NULL) {
+        printf("Compilation Failed\n");
+        return 0;
+    }
+    if(contains("-p", argumentCount, argumentVector)) {
+        printf("Compilation succeeded\n");
+        return 0;
+    }
 
 
 

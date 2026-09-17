@@ -92,21 +92,24 @@ const char *getTokenTypeString(TokenType tokenType)
     }
 }
 
-void printTokenList(TokenList tokenList)
-{
-    for (int i = 0; i < tokenList.count; i++)
-    {
-        Token token = tokenList.tokens[i];
+void printToken(Token token) {
         if (token.type == TOKEN_NEWLINE)
         {
             printf("NEWLINE\n");
-            continue;
+            return;
         }
 
         printf("%s '%.*s'\n",
                getTokenTypeString(token.type),
                (int)token.lengthInSource,
                token.originInSource);
+}
+void printTokenList(TokenList tokenList)
+{
+    for (int i = 0; i < tokenList.count; i++)
+    {
+        Token token = tokenList.tokens[i];
+        printToken(token);
     }
     printf("END_OF_FILE\n");
 }
