@@ -1,1 +1,1 @@
-(TimeCmd (LetCmd (VarLValue b) (VarExpr a)))
+(AssertCmd (ArrayIndexExpr (VarExpr a)) "")

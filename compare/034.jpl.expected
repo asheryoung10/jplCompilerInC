@@ -1,1 +1,1 @@
-(AssertCmd (IntExpr 1243) "n916779oncwq  arcfd")
+(AssertCmd (StructLiteralExpr a (IntExpr 0)) "")

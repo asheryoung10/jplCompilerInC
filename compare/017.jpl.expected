@@ -1,1 +1,1 @@
-(ShowCmd (IntExpr 13410))
+(LetCmd (ArrayLValue a H W H) (VarExpr a))

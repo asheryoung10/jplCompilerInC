@@ -1,0 +1,4 @@
+fn f(a[H, W] : a[,], b[A] : b[], c : void, d : bool) : a {
+assert f{1}, ""
+return 9
+}

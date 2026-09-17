@@ -1,4 +1,1 @@
-show 0.124
-show true
-show false
-show aeradsflkj
+assert a, "asdf"

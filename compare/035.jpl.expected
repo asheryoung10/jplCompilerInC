@@ -1,1 +1,1 @@
-(AssertCmd (FloatExpr 0) "")
+(AssertCmd (StructLiteralExpr a (IntExpr 1)) "")

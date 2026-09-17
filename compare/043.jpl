@@ -1,1 +1,1 @@
-time time time assert c, "asdf"
+show a[b[2]][a[3]]

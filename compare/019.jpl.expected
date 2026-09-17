@@ -1,1 +1,2 @@
-(ShowCmd (FloatExpr 1241))
+(StructCmd mt)
+(LetCmd (VarLValue mt1) (StructLiteralExpr mt))

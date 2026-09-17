@@ -1,1 +1,5 @@
-write image 0000000000000001241 to "lmaiuh812678671987qnasml.png"
+struct looper {
+  first: float[]
+  second: looper
+  third: void
+}

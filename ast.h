@@ -8,7 +8,8 @@ typedef enum
     TYPE_FLOAT,
     TYPE_ARRAY,
     TYPE_VARIABLE,
-    TYPE_VOID
+    TYPE_VOID,
+    TYPE_INVALID
 } TypeKind;
 
 typedef struct Type Type;
@@ -21,9 +22,8 @@ struct Type
     {
         struct
         {
-            Type* types;
-            size_t count;
-            size_t capacity;
+            Type* type;
+            size_t rank;
         } array;
 
         struct
@@ -95,7 +95,7 @@ struct Expr
       
         struct
         {
-            Expr expression;
+            Expr* expression;
 
             const char* member;
             size_t memberLength;
@@ -104,7 +104,7 @@ struct Expr
        
         struct
         {
-            Expr expression;
+            Expr* expression;
 
             Expr* indices;
             size_t count;
@@ -326,6 +326,7 @@ void freeAST(AST* ast);
 void addCommand(AST* ast, Command* command);
 
 void addExpression(Expr* array, Expr expression);
+void addField(Command *structure, const char *name, size_t nameLength, Type type);
 
 void printAST(AST ast);
 void printExpr(Expr expr);

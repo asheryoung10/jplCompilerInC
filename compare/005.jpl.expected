@@ -1,1 +1,1 @@
-(WriteCmd (IntExpr 1241) "lmaiuh812678671987qnasml.png")
+(StructCmd looper first (ArrayType (FloatType) 1) second (StructType looper) third (VoidType))

@@ -1,2 +1,5 @@
-write image 9847. to "8-a-17c0ma;slk[.png"
-
+struct floats {
+  aaa: float[]
+  bbb: float[,]
+  ccc: bool
+}

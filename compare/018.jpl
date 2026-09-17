@@ -1,1 +1,5 @@
-show .2141
+struct a {
+  elem: int
+}
+
+let b = a{3}

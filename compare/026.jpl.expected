@@ -1,1 +1,1 @@
-(LetCmd (VarLValue ascf1124) (IntExpr 1231))
+(AssertCmd (StructLiteralExpr x (VarExpr a) (VarExpr a) (VarExpr a)) "asdf")

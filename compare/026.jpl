@@ -1,1 +1,1 @@
-let ascf1124 = 1231
+assert x{a, a, a}, "asdf"

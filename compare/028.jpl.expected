@@ -1,1 +1,1 @@
-(LetCmd (VarLValue nkjayhvnl) (FloatExpr 0))
+(AssertCmd (ArrayLiteralExpr (VarExpr a)) "asdf")

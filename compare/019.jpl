@@ -1,1 +1,4 @@
-show 1241.
+struct mt {
+}
+
+let mt1 = mt{}

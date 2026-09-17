@@ -16,7 +16,7 @@ bool matchToken(int *currentIndex, TokenList tokenList, TokenType type)
         (*currentIndex)++;
         return true;
     }
-    printf("Did not match token for %s", getTokenTypeString(type));
+    printf("Did not match token for %s, instead got: ", getTokenTypeString(type));
     printToken(tokenList.tokens[*currentIndex]);
     return false;
 }
@@ -29,6 +29,67 @@ bool peekToken(int *currentIndex, TokenList tokenList, TokenType type)
         return true;
     }
     return false;
+}
+bool peekNextToken(int *currentIndex, TokenList tokenList, TokenType type)
+{
+    if (*currentIndex+1 > tokenList.count)
+        return false;
+    if (tokenList.tokens[*currentIndex+1].type == type)
+    {
+        return true;
+    }
+    return false;
+}
+Type parseType(int *currentIndex, TokenList tokenList)
+{
+    if (*currentIndex >= tokenList.count)
+        return (Type){.kind = TYPE_INVALID};
+
+    Token current = tokenList.tokens[*currentIndex];
+    if(peekNextToken(currentIndex, tokenList, TOKEN_LSQUARE)) {
+        // TODO: Parse types
+    }
+
+    switch (current.type)
+    {
+    case TOKEN_INT:
+        (*currentIndex)++;
+        return (Type){.kind = TYPE_INT};
+
+    case TOKEN_BOOL:
+        (*currentIndex)++;
+        return (Type){.kind = TYPE_BOOL};
+
+    case TOKEN_FLOAT:
+        (*currentIndex)++;
+        return (Type){.kind = TYPE_FLOAT};
+
+    case TOKEN_VOID:
+        (*currentIndex)++;
+        return (Type){.kind = TYPE_VOID};
+
+    case TOKEN_VARIABLE:
+    {
+        Type type = {
+            .kind = TYPE_VARIABLE,
+            .data.variable.start = current.originInSource,
+            .data.variable.length = current.lengthInSource
+        };
+
+        (*currentIndex)++;
+        return type;
+    }
+
+    case TOKEN_LSQUARE:
+    {
+        printf("Unhandled lsquare type\n");
+        return (Type){.kind = TYPE_INVALID};
+    }
+    default:
+        printf("Invalid type\n");
+        printToken(current);
+        return (Type){.kind = TYPE_INVALID};
+    }
 }
 #define PARSE_INVALID_EXPR \
     (Expr) { .type = EXPR_INVALID }
@@ -217,6 +278,47 @@ Command *parsePrintCommand(TokenList tokenList, int *currentIndex)
     command->data.print.length = tokenList.tokens[*currentIndex - 1].lengthInSource;
     return command;
 }
+Command *parseStructCommand(TokenList tokenList, int *currentIndex)
+{
+    Command *command = malloc(sizeof(Command));
+    command->type = CMD_STRUCT;
+    (*currentIndex)++;
+    if (!matchToken(currentIndex, tokenList, TOKEN_VARIABLE))
+        return NULL;
+    command->data.structDecl.name = tokenList.tokens[*currentIndex - 1].originInSource;
+    command->data.structDecl.nameLength = tokenList.tokens[*currentIndex - 1].lengthInSource;
+    if (!matchToken(currentIndex, tokenList, TOKEN_LCURLY))
+        return NULL;
+    if (!matchToken(currentIndex, tokenList, TOKEN_NEWLINE))
+        return NULL;
+    if (!matchToken(currentIndex, tokenList, TOKEN_VARIABLE))
+        return NULL;
+    command->data.structDecl.fieldCapacity = 0;
+    command->data.structDecl.fieldCount = 0;
+    command->data.structDecl.fields = NULL;
+    bool first = true;
+    while(first || !peekToken(currentIndex, tokenList, TOKEN_RCURLY)) {
+        if(!first) {
+            (*currentIndex)++;
+        }
+        first = false;
+        const char* name = tokenList.tokens[*currentIndex - 1].originInSource;
+        size_t nameLength = tokenList.tokens[*currentIndex - 1].lengthInSource; 
+        if (!matchToken(currentIndex, tokenList, TOKEN_COLON))
+            return NULL;
+        Type type = parseType(currentIndex, tokenList);
+        if(type.kind == TYPE_INVALID) {
+            printf("Invalid type\n");
+            return NULL;
+        }
+        addField(command,name, nameLength, type);
+        if (!matchToken(currentIndex, tokenList, TOKEN_NEWLINE))
+            return NULL;
+    }
+    if (!matchToken(currentIndex, tokenList, TOKEN_RCURLY))
+            return NULL;
+    return command;
+}
 
 Command *parseTimeCommand(TokenList tokenList, int *currentIndex);
 Command* parseCommand(TokenList tokenList, int *currentIndex) {
@@ -243,8 +345,12 @@ Command* parseCommand(TokenList tokenList, int *currentIndex) {
         case TOKEN_ASSERT:
             return parseAssertCommand(tokenList, currentIndex);
             break;
+        case TOKEN_STRUCT:
+            return parseStructCommand(tokenList, currentIndex);
+            break;
         default:
             printf("Unhandled parse case %d.\n", tokenList.tokens[*currentIndex].type);
+            printToken(tokenList.tokens[*currentIndex]);
             return NULL;
         }
 }

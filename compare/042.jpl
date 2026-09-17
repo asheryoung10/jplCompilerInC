@@ -1,1 +1,1 @@
-time let b = a
+assert a[], ""

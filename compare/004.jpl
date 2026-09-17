@@ -1,2 +1,4 @@
-write image 1234 to "7862341787cnhlkasufcn.png"
-
+struct looper {
+  first: float
+  second: looper
+}

@@ -1,1 +1,1 @@
-(ReadCmd "asdf.png" (VarLValue bkahjsgdfbc_2341243))
+(StructCmd a b (ArrayType (IntType) 1))
