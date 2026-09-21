@@ -15,6 +15,7 @@ typedef enum
 typedef struct Type Type;
 
 struct Type
+
 {
     TypeKind kind;
 
@@ -44,7 +45,7 @@ typedef enum
     EXPR_VOID,
     EXPR_ARRAY,
     EXPR_STRUCT,
-    EXPR_MEMBER,
+    EXPR_DOT,
     EXPR_INDEX,
     EXPR_CALL,
     EXPR_INVALID
@@ -139,11 +140,6 @@ typedef struct
     const char* start;
     size_t length;
 
-    /*
-     * Only used by LVALUE_INDEX:
-     *
-     * <variable> [ <variable> , ... ]
-     */
     const char** indices;
     size_t* indexLengths;
     size_t indexCount;
@@ -327,6 +323,8 @@ void addCommand(AST* ast, Command* command);
 
 void addExpression(Expr* array, Expr expression);
 void addField(Command *structure, const char *name, size_t nameLength, Type type);
+void addStatement(Command *function, Stmt statement);
+void addBinding(Command *function, Binding binding);
 
 void printAST(AST ast);
 void printExpr(Expr expr);
